@@ -22,7 +22,7 @@ final PasswordEncoder passwordEncoder;
     public ApiResponse loadUserByUsername(String username, String password)  {
         Optional<User> byUsername = userRepository.findByUserName(username);
 
-        if(byUsername.isEmpty())
+        if(!byUsername.isPresent())
             return new ApiResponse("User not found !", false);
 
         if (!passwordEncoder.matches(password, byUsername.get().getPassword()))
@@ -34,7 +34,7 @@ final PasswordEncoder passwordEncoder;
     public ApiResponse loadUserByEmail(String email, String password) {
         Optional<User> byEmail = userRepository.findByEmail(email);
 
-        if(byEmail.isEmpty())
+        if(!byEmail.isPresent())
             return new ApiResponse("User not found !", false);
 
         if (!passwordEncoder.matches(password, byEmail.get().getPassword()))
@@ -47,7 +47,7 @@ final PasswordEncoder passwordEncoder;
     public ApiResponse loadUserByPhone(String phone, String password) {
         Optional<User> byPhone = userRepository.findByPhoneNumber(phone);
 
-        if(byPhone.isEmpty())
+        if(!byPhone.isPresent())
             return new ApiResponse("User not found !", false);
 
         if (!passwordEncoder.matches(password, byPhone.get().getPassword()))

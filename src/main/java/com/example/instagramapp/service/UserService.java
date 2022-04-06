@@ -25,7 +25,7 @@ public class UserService {
 
     public ApiResponse add(UserDTO dto){
         Optional<User> user = userRepository.findByUserName(dto.getUserName());
-        if (!user.isEmpty()){
+        if (user.isPresent()){
             return new ApiResponse("this username already exists", false);
         }
         User user1 = new User();
@@ -43,7 +43,7 @@ public class UserService {
 
     public ApiResponse getDetail(Integer id){
         Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()){
+        if (!user.isPresent()){
             return new ApiResponse("user not found", false);
         }
         return new ApiResponse("user details", true, user.get());
@@ -51,7 +51,7 @@ public class UserService {
 
     public ApiResponse edit (Integer id, UserDTO userDTO){
         Optional<User> userRepo = userRepository.findById(id);
-        if (userRepo.isEmpty()){
+        if (!userRepo.isPresent()){
             return new ApiResponse("user not found", false);
         }
         User user = userRepo.get();
@@ -66,7 +66,7 @@ public class UserService {
 
     public ApiResponse delete(Integer id){
         Optional<User> userRepo = userRepository.findById(id);
-        if (userRepo.isEmpty()){
+        if (!userRepo.isPresent()){
             return new ApiResponse("user not found", false);
         }
         userRepository.delete(userRepo.get());

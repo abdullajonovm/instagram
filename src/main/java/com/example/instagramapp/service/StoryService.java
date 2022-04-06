@@ -31,7 +31,7 @@ public class StoryService {
 
     public ApiResponse getDetail(Integer id){
         Optional<Story> post = storyRepository.findById(id);
-        if (post.isEmpty()){
+        if (!post.isPresent()){
             return new ApiResponse("post not found", false);
         }
         return new ApiResponse("post details", true, post.get());
@@ -51,7 +51,7 @@ public class StoryService {
     public ApiResponse delete(Integer id, User user){
 
         Optional<Story> post = storyRepository.findById(id);
-        if(post.isEmpty()){
+        if(!post.isPresent()){
             return new ApiResponse("post not found", false, true);
         }
         if (post.get().getUser()!=user){

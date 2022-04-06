@@ -33,7 +33,7 @@ public class PostService {
 
     public ApiResponse getDetail(Integer id){
         Optional<Post> post = postRepository.findById(id);
-        if (post.isEmpty()){
+        if (!post.isPresent()){
             return new ApiResponse("post not found", false);
         }
         return new ApiResponse("post details", true, post.get());
@@ -54,7 +54,7 @@ public class PostService {
     public ApiResponse delete(Integer id, User user){
 
         Optional<Post> post = postRepository.findById(id);
-        if(post.isEmpty()){
+        if(!post.isPresent()){
             return new ApiResponse("post not found", false, true);
         }
         if (post.get().getUser()!=user){
@@ -67,7 +67,7 @@ public class PostService {
 
     public ApiResponse edit(Integer id, PostDTO postDTO, User user){
         Optional<Post> postRepo = postRepository.findById(id);
-        if (postRepo.isEmpty()){
+        if (!postRepo.isPresent()){
             return new ApiResponse("post not found", false);
         }
         if (postRepo.get().getUser()!=user){

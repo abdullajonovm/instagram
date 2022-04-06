@@ -99,7 +99,7 @@ public class AuthController {
 
         Optional<Code> code1 = codeRepository.findByCode(code);
 
-        if(code1.isEmpty()){
+        if(!code1.isPresent()){
             return ResponseEntity.badRequest().body(new ApiResponse("incorrect code", false));
         }
 
